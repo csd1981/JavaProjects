@@ -1,13 +1,36 @@
 package com.craigdavies.dice;
 
 import java.util.Random;
+import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class Simulator {
     public static void main(String[] args) {
-        Random rand = new Random();
+        Scanner scanner = new Scanner(System.in);
+        boolean gameComplete = false;
 
-        int rolledNumber = rand.nextInt(6) + 1;
-        System.out.println(display(rolledNumber));
+        do {
+            try {
+                System.out.println("How many rolls would you like?");
+                int numberOfDice = scanner.nextInt();
+
+                gameComplete = true;
+
+                System.out.println("About to roll " + numberOfDice + " dice!");
+
+                Random rand = new Random();
+
+                for (int i = 0; i < numberOfDice; i++) {
+
+                    int rolledNumber = rand.nextInt(6) + 1;
+                    System.out.println(display(rolledNumber));
+
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("That is not a valid number.");
+                scanner.next();
+            }
+        } while (!gameComplete);
     }
 
     static String display(int value) {
